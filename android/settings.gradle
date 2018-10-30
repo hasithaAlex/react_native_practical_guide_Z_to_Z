@@ -1,0 +1,3 @@
+rootProject.name = 'react_native_practical_guide_Z_to_Z'
+
+include ':app'
