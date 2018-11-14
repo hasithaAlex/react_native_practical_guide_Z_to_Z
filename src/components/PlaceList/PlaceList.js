@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { ScrollView } from "react-native";
 import React from "react";
 import ListItem from "../ListItem/ListItem";
 
@@ -10,7 +10,7 @@ const placeList = props => {
       onItemPressed={() => props.onItemDeleted(i)}
     />
   ));
-  return <View>{placeOutput}</View>;
+  return <ScrollView>{placeOutput}</ScrollView>;
 };
 
 export default placeList;
