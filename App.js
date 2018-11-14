@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { Component } from "react";
 import {
   Platform,
@@ -15,6 +7,8 @@ import {
   TextInput,
   Button
 } from "react-native";
+
+import PlaceList from "./src/components/PlaceList/PlaceList";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -48,10 +42,17 @@ export default class App extends Component<Props> {
     });
   };
 
+  placeDeletedHandler = index => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter((place, i) => {
+          return i !== index;
+        })
+      };
+    });
+  };
+
   render() {
-    const placeOutput = this.state.places.map((place, i) => (
-      <Text key={i}>{place}</Text>
-    ));
     return (
       <View style={styles.container}>
         <View style={styles.inputContainer}>
@@ -67,8 +68,12 @@ export default class App extends Component<Props> {
             onPress={this.placeSubmitHandler}
           />
         </View>
-        {placeOutput}
-        <View />
+        <View style={styles.listContaner}>
+          <PlaceList
+            places={this.state.places}
+            onItemDeleted={this.placeDeletedHandler}
+          />
+        </View>
       </View>
     );
   }
@@ -94,5 +99,8 @@ const styles = StyleSheet.create({
   },
   placeButton: {
     width: "30%"
+  },
+  listContaner: {
+    width: "100%"
   }
 });
