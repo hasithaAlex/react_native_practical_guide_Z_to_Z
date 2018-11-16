@@ -9,6 +9,7 @@ import {
 } from "react-native";
 
 import PlaceList from "./src/components/PlaceList/PlaceList";
+import placeImage from "./assets/adsmanager.png";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -37,16 +38,20 @@ export default class App extends Component<Props> {
 
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(prevState.placeName)
+        places: prevState.places.concat({
+          key: Math.random(),
+          value: this.state.placeName.trim(),
+          image: placeImage
+        })
       };
     });
   };
 
-  placeDeletedHandler = index => {
+  placeDeletedHandler = key => {
     this.setState(prevState => {
       return {
-        places: prevState.places.filter((place, i) => {
-          return i !== index;
+        places: prevState.places.filter(place => {
+          return place.key !== key;
         })
       };
     });
